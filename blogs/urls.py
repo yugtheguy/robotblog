@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from django.shortcuts import redirect
 
 
 urlpatterns = [
@@ -11,5 +12,7 @@ urlpatterns = [
     path('display/', views.post_show, name='show_post'),
     path('profile/', views.profile, name="profile"),
     path('post/delete/<int:pk>/', views.post_delete, name='delete_post'),
-    path('post/edit/<int:pk>/', views.edit_post, name='edit_post')
+    path('post/edit/<int:pk>/', views.edit_post, name='edit_post'),
+    path('', lambda request: redirect('home')),
+
 ]
