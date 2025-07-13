@@ -1,0 +1,38 @@
+{% extends 'blogs/home.html' %}
+
+{% block content %}
+<div>
+    <h1>Username - {{ user.username }}</h1>
+</div>
+
+<div class="post-feed">
+    {% for post in posts %}
+    <div class="post-card">
+        <div class="post-header">
+            <strong>{{ post.title }}</strong>
+            <span class="author">by {{ post.author }}</span>
+        </div>
+        <p class="post-content">{{ post.content }}</p>
+        <div class="timestamp">Posted on: {{ post.day_created }}</div>
+        <form method="post" action="{% url 'delete_post' post.pk %}">
+            {% csrf_token %}
+            <button type="submit">Delete</button>
+        </form>
+        <form action="{% url 'edit_post' post.pk %}" method="POST">
+
+            {% csrf_token %}
+            <button type="submit">Edit</button>
+
+        </form>
+
+    </div>
+
+
+
+    {% empty %}
+    <p>No posts yet. Be the first to write one!</p>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

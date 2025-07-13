@@ -1,0 +1,34 @@
+{% extends 'blogs/home.html' %}
+
+{% block content %}
+<h1>📝 Latest Posts</h1>
+
+<div class="post-feed">
+    {% for post in page_obj %}
+    <div class="post-card">
+        <div class="post-header">
+            <strong>{{ post.title }}</strong>
+            <span class="author">by {{ post.author }}</span>
+        </div>
+        <p class="post-content">{{ post.content }}</p>
+        <div class="timestamp">Posted on: {{ post.day_created }}</div>
+    </div>
+
+
+
+    {% empty %}
+    <p>No posts yet. Be the first to write one!</p>
+    {% endfor %}
+</div>
+<div class="pagination">
+    {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}">⬅️ Previous</a>
+    {% endif %}
+
+    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">Next ➡️</a>
+    {% endif %}
+</div>
+{% endblock %}
