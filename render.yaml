@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: robotblog
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn robot_blog.wsgi:application
+    envVars:
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: robotblog-db
+          property: connectionString
+databases:
+  - name: robotblog-db
+    plan: free
